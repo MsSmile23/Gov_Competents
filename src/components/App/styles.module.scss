@@ -1,0 +1,17 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.circles {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+
+  & > * {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}

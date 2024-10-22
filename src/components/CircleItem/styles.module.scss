@@ -1,0 +1,136 @@
+$peach: hsla(29, 100%, 84%, 1);
+$grey: hsla(0, 0%, 68%, 1);
+$green: hsla(162, 100%, 32%, 1);
+$orange: hsla(29, 100%, 50%, 1);
+$blockWidth: 30px;
+
+.block {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: $blockWidth;
+  height: $blockWidth;
+  margin-top: calc(-1 * $blockWidth / 2);
+  margin-left: calc(-1 * $blockWidth / 2);
+  transform-origin: center center;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    box-shadow 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+
+  &[data-tag='peach'] {
+    background-color: $peach;
+  }
+  &[data-tag='grey'] {
+    background-color: $grey;
+  }
+  &[data-tag='green'] {
+    background-color: $green;
+  }
+  &[data-tag='orange'] {
+    background-color: $orange;
+  }
+
+  &_active,
+  &_chosen:hover {
+    &[data-tag='peach'] {
+      background-color: $orange;
+      box-shadow:
+        0 0 0 5px #fff,
+        0 0 0 6px $orange;
+    }
+    &[data-tag='grey'] {
+      background-color: $green;
+      box-shadow:
+        0 0 0 5px #fff,
+        0 0 0 6px $green;
+    }
+  }
+
+  &_chosen {
+    &[data-tag='peach'] {
+      background-color: $orange;
+    }
+    &[data-tag='grey'] {
+      background-color: $green;
+    }
+  }
+
+  &:active {
+    border-color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover:not(.block_active, .block_chosen) {
+      &[data-tag='peach'] {
+        box-shadow:
+          0 0 0 5px #fff,
+          0 0 0 6px $peach;
+      }
+      &[data-tag='grey'] {
+        box-shadow:
+          0 0 0 5px #fff,
+          0 0 0 6px $grey;
+      }
+    }
+
+    &_active:hover {
+      &[data-tag='green'] {
+        box-shadow:
+          0 0 0 5px #fff,
+          0 0 0 6px $green;
+      }
+      &[data-tag='orange'] {
+        box-shadow:
+          0 0 0 5px #fff,
+          0 0 0 6px $orange;
+      }
+    }
+  }
+}
+
+.text {
+  margin: 0;
+  padding: 8px;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  display: flex;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.2s ease-in-out;
+
+  @media (hover: hover) {
+    &:hover,
+    .block:hover & {
+      border: 1px solid hsla(0, 0%, 96%, 1);
+      border-radius: 6px;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-radius: 6px;
+
+    border: 1px solid transparent;
+    transition:
+      backdrop-filter,
+      border-color,
+      0.2s linear;
+  }
+
+  &:hover::before,
+  .block_active.block &::before,
+  .block:hover &::before {
+    backdrop-filter: blur(20px);
+    border: 1px solid hsla(0, 0%, 96%, 1);
+  }
+}
